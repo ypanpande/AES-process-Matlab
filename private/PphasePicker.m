@@ -132,28 +132,7 @@ else
     o = 'to_peak';
 end
 
-% User may modify the filter corner frequencies (flp and fhp) for more
-% accurate picking
 
-switch type
-    % Weak-motion low- and high-pass corner frequencies in Hz
-    case {'wm','WM'}
-        filtflag = 1;
-        %flp = 7; fhp = 90;
-        flp = 0.1; fhp = 10;
-        %flp = 1; fhp = 2;
-        % Strong-motion low- and high-pass corner frequencies in Hz
-    case {'sm','SM'}
-        filtflag = 1;
-        flp = 0.1; fhp = 20;
-        % No bandpass filter will be applied
-    case {'na','NA'}
-        filtflag = 0;
-        x_d = detrend(x); % detrend waveform
-end
-x_org = x;
-% Normalize input to prevent numerical instability from very low amplitudes
-x = x/max(abs(x));
 
 % Bandpass filter and detrend waveform
 if filtflag ~= 0;
@@ -169,6 +148,18 @@ switch o
         xnew = x_d;
 end
 
+% Construct a fixed-base viscously damped SDF oscillator
+omegan = 2*pi/Tn;           % natural frequency in radian/second
+C = 2*xi*omegan;            % viscous damping term
+K = omegan^2;               % stiffness term
+y(:,1) = [0;0];             % response vector
+
+% Solve second-order ordinary differential equation of motion
+A = [0 1; -K -C]; Ae = expm(A*dt); AeB = A\(Ae-eye(2))*[0;1];
+for k = 2:length(xnew); y(:,k) = Ae*y(:,k-1) + AeB*xnew(k); end
+
+veloc = (y(2,:))';          % relative velocity of mass
+Edi = 2*xi*omegan*veloc.^2; % integrand of viscous damping energy
 
 % Apply histogram method
 R = statelevel(Edi,nbins);
