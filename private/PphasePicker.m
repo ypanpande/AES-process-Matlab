@@ -132,7 +132,28 @@ else
     o = 'to_peak';
 end
 
+% User may modify the filter corner frequencies (flp and fhp) for more
+% accurate picking
 
+switch type
+    % Weak-motion low- and high-pass corner frequencies in Hz
+    case {'wm','WM'}
+        filtflag = 1;
+        %flp = 7; fhp = 90;
+        flp = 0.1; fhp = 10;
+        %flp = 1; fhp = 2;
+        % Strong-motion low- and high-pass corner frequencies in Hz
+    case {'sm','SM'}
+        filtflag = 1;
+        flp = 0.1; fhp = 20;
+        % No bandpass filter will be applied
+    case {'na','NA'}
+        filtflag = 0;
+        x_d = detrend(x); % detrend waveform
+end
+x_org = x;
+% Normalize input to prevent numerical instability from very low amplitudes
+x = x/max(abs(x));
 
 % Bandpass filter and detrend waveform
 if filtflag ~= 0;
