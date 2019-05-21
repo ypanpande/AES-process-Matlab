@@ -92,21 +92,7 @@ function [loc, snr_db] = PphasePicker(x, dt, type, pflag, Tn, xi, nbins, o)
 %
 %   Written by Dr. Erol Kalkan, P.E. (ekalkan@usgs.gov)
 %   $Revision: 16.0 $  $Date: 2017/02/17 18:14:00 $
-if nargin > 2
-    validateattributes(x,{'double'},{'real','finite','vector'}, ...
-        'PphasePicker','X');
-    validateattributes(dt,{'double'},{'real','finite','scalar'}, ...
-        'PphasePicker','DT');
-    validatestring(type,{'sm','wm','na','SM','WM','NA'},'PphasePicker','INPUT');
-else
-    error('Not enough inputs.  See help documentation.');
-end
 
-if nargin > 3
-    validatestring(pflag,{'Y','y','N','n'},'PphasePicker','pflag');
-else
-    pflag = 'n';
-end
 
 if nargin > 4
     validateattributes(Tn,{'double'},{'real','finite','scalar'}, ...
