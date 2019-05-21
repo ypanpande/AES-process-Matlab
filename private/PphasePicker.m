@@ -92,7 +92,21 @@ function [loc, snr_db] = PphasePicker(x, dt, type, pflag, Tn, xi, nbins, o)
 %
 %   Written by Dr. Erol Kalkan, P.E. (ekalkan@usgs.gov)
 %   $Revision: 16.0 $  $Date: 2017/02/17 18:14:00 $
+if nargin > 2
+    validateattributes(x,{'double'},{'real','finite','vector'}, ...
+        'PphasePicker','X');
+    validateattributes(dt,{'double'},{'real','finite','scalar'}, ...
+        'PphasePicker','DT');
+    validatestring(type,{'sm','wm','na','SM','WM','NA'},'PphasePicker','INPUT');
+else
+    error('Not enough inputs.  See help documentation.');
+end
 
+if nargin > 3
+    validatestring(pflag,{'Y','y','N','n'},'PphasePicker','pflag');
+else
+    pflag = 'n';
+end
 
 if nargin > 4
     validateattributes(Tn,{'double'},{'real','finite','scalar'}, ...
@@ -155,18 +169,6 @@ switch o
         xnew = x_d;
 end
 
-% Construct a fixed-base viscously damped SDF oscillator
-omegan = 2*pi/Tn;           % natural frequency in radian/second
-C = 2*xi*omegan;            % viscous damping term
-K = omegan^2;               % stiffness term
-y(:,1) = [0;0];             % response vector
-
-% Solve second-order ordinary differential equation of motion
-A = [0 1; -K -C]; Ae = expm(A*dt); AeB = A\(Ae-eye(2))*[0;1];
-for k = 2:length(xnew); y(:,k) = Ae*y(:,k-1) + AeB*xnew(k); end
-
-veloc = (y(2,:))';          % relative velocity of mass
-Edi = 2*xi*omegan*veloc.^2; % integrand of viscous damping energy
 
 % Apply histogram method
 R = statelevel(Edi,nbins);
