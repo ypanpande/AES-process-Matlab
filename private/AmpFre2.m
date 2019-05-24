@@ -16,6 +16,21 @@ fre_peak=0;
 fre_centroid=0;
 fre_wpeak=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FFT 
+N=length(data);
+Y=abs(fft(data));
+% amplitude
+Amp=Y/(N/2);
+Amp=Amp(1:N/2);
+Amp=Amp';
+ Amp(1)=0;
+% frequency
+k=0:N-1;
+T=N/Fs;
+fre=k/T;
+fre=fre(1:N/2);
+%figure
+%plot(fre,Amp);
 
 % calculate fre_peak, fre_centroid; fre_wpeak
 [Amp_max,indfre]=max(Amp(2:end));
@@ -33,15 +48,7 @@ fre_wpeak=fre_wpeak_0/1000; %unit: kHz
 % (0,5k),(5,10k),(10,15k),(15,20k),(20,125k) corresponding to
 % [1:164],[165:328],[329:492],[493:656],[657:4096]
 
-PartialPower1 = trapz(Amp(1:164).^2);
-PartialPower2 = trapz(Amp(165:328).^2);
-PartialPower3 = trapz(Amp(329:492).^2);
-PartialPower4 = trapz(Amp(493:656).^2);
-%PartialPower5 = trapz(Amp(526:656).^2);
-PartialPower5 = trapz(Amp(657:4096).^2);
-Power = trapz(Amp(1:end).^2);
-PP = [PartialPower1,PartialPower2,PartialPower3,PartialPower4,PartialPower5];
-pppc = PP*100/Power;
+
 
 
 end
