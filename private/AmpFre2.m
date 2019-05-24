@@ -48,7 +48,15 @@ fre_wpeak=fre_wpeak_0/1000; %unit: kHz
 % (0,5k),(5,10k),(10,15k),(15,20k),(20,125k) corresponding to
 % [1:164],[165:328],[329:492],[493:656],[657:4096]
 
-
+PartialPower1 = trapz(Amp(1:164).^2);
+PartialPower2 = trapz(Amp(165:328).^2);
+PartialPower3 = trapz(Amp(329:492).^2);
+PartialPower4 = trapz(Amp(493:656).^2);
+%PartialPower5 = trapz(Amp(526:656).^2);
+PartialPower5 = trapz(Amp(657:4096).^2);
+Power = trapz(Amp(1:end).^2);
+PP = [PartialPower1,PartialPower2,PartialPower3,PartialPower4,PartialPower5];
+pppc = PP*100/Power;
 
 
 end
