@@ -12,12 +12,7 @@ function  paramaterForAICPicker2
 %  fold = 5;
 
 
-% Main window
-set(figg,'Position',[10000 10000 250 340],'NumberTitle','off','Name','parameter for AIC Picker',...
-    'MenuBar','none','Resize','off');
-bgclr = get(figg,'Color');
-% % Move the GUI to the center of the screen
-movegui(figg,'center');
+
 %%
 %%% the onset time is first pre-determined using a threshold amplitude
 %%% level: $$ sum_{k=i+1}^{k=wset}|x_k|/wset = fold*sum_{k=1}^{k=i}|x_k|/i $$
