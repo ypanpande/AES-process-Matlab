@@ -39,6 +39,13 @@ wsetb = uicontrol('Parent',figg,'Style','edit','String',num2str(isDenoised),'Bac
 % %%
 
 
+    function setFcn(source,eventdata)
+        isDenoised = str2double(source.String);
+    end
+
+%     function foldFcn(source,eventdata)
+%         fold = str2double(source.String);
+%     end
 
  
 
