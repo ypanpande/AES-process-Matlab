@@ -3,11 +3,7 @@ function MakeTableGUI
 
 global addToRow;
 
-%// Create figure and uielements
-handles.fig = figure('Position',[10000 10000 850 630], 'Name', 'save table of onset time','NumberTitle','off');
-movegui(handles.fig,'center');
-handles.DispButton = uicontrol('Style','Pushbutton','Position',[20 120 80 40],'String','addToTable','Callback',@DispTableCallback);
-handles.SaveButton = uicontrol('Style','Pushbutton','Position',[20 80 60 40],'String','export','Callback',@saveCallback);
+
 
 
 %// Place table in GUI
