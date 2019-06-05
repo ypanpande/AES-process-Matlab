@@ -2,17 +2,7 @@
 clear ; clc;
 %% data preparation and picking for onset time
 
-% choose the file for analysing
-[name,curvePath] = uigetfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'}, ...
-    'Pick a file for onset time picking', ...
-    'MultiSelect', 'on');
 
-if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
-    filename = cellstr(name);
-    
-end
 
 
 % get the data from the files
