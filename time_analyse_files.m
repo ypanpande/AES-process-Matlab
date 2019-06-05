@@ -2,16 +2,20 @@
 clear ; clc;
 %% data preparation and picking for onset time
 
+% choose the file for analysing
+[name,curvePath] = uigetfile( ...
+    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file for onset time picking', ...
+    'MultiSelect', 'on');
+
+if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
+    filename = cellstr(name);
+    
+end
 
 
 
-% get the data from the files
-filenumber = length(filename);
-
-AICbatch_matrix = {'file name', 'CH0 (ms)','CH1 (ms)','CH2 (ms)','CH3 (ms)','CH4 (ms)','CH5 (ms)'};
-% DeltaTbatch_matrix = {'file name', 'CH0-CH1 (ms)','CH1-CH1 (ms)','CH2-CH1 (ms)','CH3-CH1 (ms)','CH4-CH1 (ms)','CH5-CH1 (ms)'};
-% NewDeltaTbatch_matrix = {'file name', 'CH0-CH1 (ms)','CH1-CH1 (ms)','CH2-CH1 (ms)','CH3-CH1 (ms)','CH4-CH1 (ms)','CH5-CH1 (ms)'};
-% locbatch_matrix ={'file name', 'x (mm)','y (mm)'};
 
 
 for fileloop = 1: filenumber
