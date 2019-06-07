@@ -15,17 +15,18 @@ if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
 end
 
 
+% get the data from the files
+filenumber = length(filename);
 
+AICbatch_matrix = {'file name', 'CH0 (ms)','CH1 (ms)','CH2 (ms)','CH3 (ms)','CH4 (ms)','CH5 (ms)'};
+% DeltaTbatch_matrix = {'file name', 'CH0-CH1 (ms)','CH1-CH1 (ms)','CH2-CH1 (ms)','CH3-CH1 (ms)','CH4-CH1 (ms)','CH5-CH1 (ms)'};
+% NewDeltaTbatch_matrix = {'file name', 'CH0-CH1 (ms)','CH1-CH1 (ms)','CH2-CH1 (ms)','CH3-CH1 (ms)','CH4-CH1 (ms)','CH5-CH1 (ms)'};
+% locbatch_matrix ={'file name', 'x (mm)','y (mm)'};
 
 
 for fileloop = 1: filenumber
     
-    [data, txt, raw] = xlsread(fullfile(curvePath,filename{fileloop}));
-    [row_data, col_data] = size(data);
-    
-    minVar = 1e3; % set the minimum value of the variance of the signal
-    V = find(var(data) <= minVar);
-    %peakValue = 32768;
+   
     if isempty(V) %length(V) <=2 % the number of noise data should less than 1
         
         for col_loop = 1: col_data
