@@ -37,12 +37,19 @@ for fileloop = 1: filenumber
         for col_loop = 1: col_data
             DCH{col_loop} = data(:,col_loop); %one column data
             
-
+            loc = AicPicker(DCH{col_loop}, 0); % AIC picking for no denoising the data
+% % %             switch pickMethod  % choose the method for picking the onset time 
+% % %                 case 'AIC0'
+% % %                     loc = AicPicker(DCH{col_loop}, 0); % AIC picking for no denoising the data
+% % %                 case 'AIC1'
+% % %                     loc = AicPicker(DCH{col_loop}, 1); % AIC picking for denoising the data with cwt and dwt
+% % %                 case 'CWT'
+% % %                     loc = cwttest(DCH{col_loop}, 'morse'); % picking with the method CWT
+% % %             end
+            Temp_addrowTem{col_loop} = loc;
+        end
         
-        % get the indexs of time threshold
-        time_threshold_index = find(cell2mat(Temp_addrowTem) <= 3 | cell2mat(Temp_addrowTem)  >= 6);
-        if isempty(time_threshold_index)
-            addrowTem = Temp_addrowTem;
+
             
             
             
