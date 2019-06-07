@@ -26,23 +26,18 @@ AICbatch_matrix = {'file name', 'CH0 (ms)','CH1 (ms)','CH2 (ms)','CH3 (ms)','CH4
 
 for fileloop = 1: filenumber
     
-   
+    [data, txt, raw] = xlsread(fullfile(curvePath,filename{fileloop}));
+    [row_data, col_data] = size(data);
+    
+    minVar = 1e3; % set the minimum value of the variance of the signal
+    V = find(var(data) <= minVar);
+    %peakValue = 32768;
     if isempty(V) %length(V) <=2 % the number of noise data should less than 1
         
         for col_loop = 1: col_data
             DCH{col_loop} = data(:,col_loop); %one column data
             
-            loc = AicPicker(DCH{col_loop}, 0); % AIC picking for no denoising the data
-% % %             switch pickMethod  % choose the method for picking the onset time 
-% % %                 case 'AIC0'
-% % %                     loc = AicPicker(DCH{col_loop}, 0); % AIC picking for no denoising the data
-% % %                 case 'AIC1'
-% % %                     loc = AicPicker(DCH{col_loop}, 1); % AIC picking for denoising the data with cwt and dwt
-% % %                 case 'CWT'
-% % %                     loc = cwttest(DCH{col_loop}, 'morse'); % picking with the method CWT
-% % %             end
-            Temp_addrowTem{col_loop} = loc;
-        end
+
         
         % get the indexs of time threshold
         time_threshold_index = find(cell2mat(Temp_addrowTem) <= 3 | cell2mat(Temp_addrowTem)  >= 6);
