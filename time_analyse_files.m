@@ -49,18 +49,15 @@ for fileloop = 1: filenumber
             Temp_addrowTem{col_loop} = loc;
         end
         
+        % get the indexs of time threshold
+        time_threshold_index = find(cell2mat(Temp_addrowTem) <= 3 | cell2mat(Temp_addrowTem)  >= 6);
+        if isempty(time_threshold_index)
+            addrowTem = Temp_addrowTem;
+            
+            
+            
+            
 
-            
-            
-            
-            
-            %timeCH1 = addrowTem{2}; % time of channel 1
-            for col_loop_dt = 1: col_data
-                deltaT = addrowTem{col_loop_dt} - addrowTem{2};
-                delta{col_loop_dt} = deltaT;
-                %delta_title{col_loop_dt} = ['CH' ,num2str(col_loop_dt-1), '-', 'CH1'];
-            end
-            
             
             
             
