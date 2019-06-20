@@ -67,18 +67,35 @@ for fileloop = 1: filenumber
             
             
             
-            
+            % get the indexs of deltaT threshold
+            threshold_index = find(cell2mat(delta) <= -1.2 | cell2mat(delta)  >= 1.2);
+            if isempty(threshold_index) % deltaT of channels should in the range of -1.2 < dt < 1.2
+                %save the picking time of signal
+                addToRow_batch = [{filename{fileloop}},addrowTem];
+                AICbatch_matrix = [AICbatch_matrix;addToRow_batch]; %for data of onset time saving
+            else
+                
+                if ~exist(fullfile(curvePath,'deltatimeErrorFolder'),'dir')
+                mkdir(fullfile(curvePath), 'deltatimeErrorFolder');
+                end
+                movefile(fullfile(curvePath,filename{fileloop}), fullfile(curvePath,'deltatimeErrorFolder'));
+            end
+        else
+            if ~exist(fullfile(curvePath,'timeErrorFolder'),'dir')
+             mkdir(fullfile(curvePath), 'timeErrorFolder');
+            end
+            movefile(fullfile(curvePath,filename{fileloop}), fullfile(curvePath,'timeErrorFolder'));
+        end
+    else
+        if ~exist(fullfile(curvePath,'noiseFolder'),'dir')
+         mkdir(fullfile(curvePath), 'noiseFolder'); 
+        end
+        movefile(fullfile(curvePath,filename{fileloop}), fullfile(curvePath,'noiseFolder'));
+    end
     
 end
 
-% save the data in the certain files
-[timefile,savetimepath] = uiputfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'},'Save file of picking time', 'pick time.xls');
-ffTime = fullfile(savetimepath, timefile);
-xlswrite(ffTime,AICbatch_matrix)
 
-msgbox('done!')
 
 function [loc,ind,k0,aicP1] = AicPicker(data_orignal,isDenoised)
 %UNTITLED5 Summary of this function goes here
