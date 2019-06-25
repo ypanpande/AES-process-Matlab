@@ -108,7 +108,21 @@ function [loc,ind,k0,aicP1] = AicPicker(data_orignal,isDenoised)
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
+%% data preprocess
+data0 = data_orignal - mean(data_orignal); % substract the offset
 
+switch isDenoised
+    case  0
+        data1 = data0;
+    case  1
+        data1 = wdenoise(data0,10, ...
+            'Wavelet', 'bior4.4', ...
+            'DenoisingMethod', 'SURE', ...
+            'ThresholdRule', 'Hard', ...
+            'NoiseEstimate', 'LevelDependent');
+end
+data=data1;
+ind_peak = find(abs(data) == max(abs(data)));
 
 
 
