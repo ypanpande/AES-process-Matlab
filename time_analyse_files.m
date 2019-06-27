@@ -156,24 +156,7 @@ if ~isempty(x)
 else
     aicP1 = 0;
 end
-% % find the position of the mininum
-if aicP1 ~= 0
-    ind = find(aicP1 == min(aicP1)) + 1;  % pick is one more than divide point
-else
-    ind = 0;
-end
 
-
-
-dt=0.004; % time step (unit: ms)
-
-if ind~=0
-    loc=(ind-1)*dt;
-else
-    loc=0;
-
-end
-end
 
 
 
