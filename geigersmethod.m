@@ -5,31 +5,7 @@ clear; clc; close all;
 
 format long
 
-% Determining the predicted arrival time using the Geiger's Method
-%% set parameters
-% sensor coordinates (xi, yi)
-% sx=[5, 0, 505, 550];
-% sy=[1555,0, 1482.5,82.5];
-sx=[5, 0, 505, 550, -1650, -1650];
-sy=[1555,0, 1482.5,82.5,1552.5, -2.5];
 
-%velocity component
-v0 = [4000, 2500];
-
-
-
-
-N = length(sx); % number of sensor
-M = 3; % number of model parameter [dx,dy,dt]
-
-% stop criterion res < epsilon = 1.0e-2;
-epsilon=1.0e-2;
-
-% save the result
-eventMatrix = {}; 
-header = [{'event name'},{'x0 (mm)'},{'y0 (mm)'},{'t0 (ms)'},{'RMS res time'},{'average res time (ms)'},{'tmin (ms)'},{'CH'}];
-
-%% Determining the predicted arrival time using the Geiger's Method
 
 % choose the file for analysing
 [name,curvePath] = uigetfile( ...
