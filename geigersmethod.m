@@ -5,25 +5,32 @@ clear; clc; close all;
 
 format long
 
+% Determining the predicted arrival time using the Geiger's Method
+%% set parameters
+% sensor coordinates (xi, yi)
+% sx=[5, 0, 505, 550];
+% sy=[1555,0, 1482.5,82.5];
+sx=[5, 0, 505, 550, -1650, -1650];
+sy=[1555,0, 1482.5,82.5,1552.5, -2.5];
+
+%velocity component
+v0 = [4000, 2500];
 
 
-% choose the file for analysing
-[name,curvePath] = uigetfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'}, ...
-    'Pick a file', ...
-    'MultiSelect', 'on');
 
-if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
-    filename = cellstr(name);    
-end
 
-filenumber = length(filename);
+N = length(sx); % number of sensor
+M = 3; % number of model parameter [dx,dy,dt]
 
-for filesloop = 1:filenumber
-  
-[data, txt, raw] = xlsread(fullfile(curvePath,filename{filesloop}));
-[row_data, col_data] = size(data);
+% stop criterion res < epsilon = 1.0e-2;
+epsilon=1.0e-2;
+
+% save the result
+eventMatrix = {}; 
+header = [{'event name'},{'x0 (mm)'},{'y0 (mm)'},{'t0 (ms)'},{'RMS res time'},{'average res time (ms)'},{'tmin (ms)'},{'CH'}];
+
+%% Determining the predicted arrival time using the Geiger's Method
+
 
 eventMatrix_file = {};
 for eventnum = 1:row_data
