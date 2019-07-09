@@ -117,6 +117,14 @@ end
 result_matrix = [header;eventMatrix];
 
 %% save the result
+% save the data in the certain files
+        [resultfile,saveresultpath] = uiputfile( ...
+    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
+    '*.*',  'All Files (*.*)'},'Save file of geigersmethod result', 'geigersmethod result.xls');
+        ffresult = fullfile(saveresultpath, resultfile);
+        xlswrite(ffresult,result_matrix)
+        
+msgbox('done!')
 
 end
 
