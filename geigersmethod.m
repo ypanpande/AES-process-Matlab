@@ -93,14 +93,21 @@ for eventnum = 1:row_data
         % We use biconjugate method to reduce the computational cost (see for the dlsfun at the bottom)
         mest = mest+dm; %updated model parameter
         
-       
-    aver_dd = sqrt((N-M)*res^2/N);
-    addToRow = [{txt{eventnum+1}},{mest(1)},{mest(2)},{mest(3)},{res},{aver_dd},{t_ini},{index-1}];
-    eventMatrix_file = [eventMatrix_file;addToRow];
-end
-    eventMatrix = [eventMatrix;eventMatrix_file];
-end
-result_matrix = [header;eventMatrix];
+        res = sqrt((dd'*dd)/(N-M));
+%         div(iter+1) = res;
+        
+        if res <= epsilon
+            break
+        end
+        
+%          if div(iter) < res
+%              mest = mest - dm;
+%              res = div(iter);
+%              break
+%          end
+        
+    end
+
 
 %% save the result
 % save the data in the certain files
