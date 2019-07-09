@@ -108,16 +108,15 @@ for eventnum = 1:row_data
         
     end
 
+    aver_dd = sqrt((N-M)*res^2/N);
+    addToRow = [{txt{eventnum+1}},{mest(1)},{mest(2)},{mest(3)},{res},{aver_dd},{t_ini},{index-1}];
+    eventMatrix_file = [eventMatrix_file;addToRow];
+end
+    eventMatrix = [eventMatrix;eventMatrix_file];
+end
+result_matrix = [header;eventMatrix];
 
 %% save the result
-% save the data in the certain files
-        [resultfile,saveresultpath] = uiputfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'},'Save file of geigersmethod result', 'geigersmethod result.xls');
-        ffresult = fullfile(saveresultpath, resultfile);
-        xlswrite(ffresult,result_matrix)
-        
-msgbox('done!')
 
 end
 
