@@ -3,16 +3,7 @@
 %   Detailed explanation goes here
 clear; close all;
 % determining the predicted arrival time using the sequential searching algorithms
-format long
-%% set the parameters
-% sensor coordinates (xi, yi)
-% sx=[5, 0, 505, 550];
-% sy=[1555,0, 1482.5,82.5];
-sx=[5, 0, 505, 550, -1650, -1650];
-sy=[1555,0, 1482.5,82.5,1552.5, -2.5];
 
-%velocity component
-v0 = [4000, 2500];
 
 
 N = length(sx); % number of sensor
