@@ -15,18 +15,17 @@ sy=[1555,0, 1482.5,82.5,1552.5, -2.5];
 v0 = [4000, 2500];
 
 
+N = length(sx); % number of sensor
+M = 3; % number of model parameter [dx,dy,dt]
+
+% save the result
+eventMatrix = {}; 
+header = [{'event name'},{'x0 (mm)'},{'y0 (mm)'},{'t0 (ms)'},{'RMS res time'},{'average res time (ms)'},{'tmin (ms)'},{'CH'}];
+
+%% determining the predicted arrival time using the sequential searching algorithms
 
 
-% choose the file for analysing
-[name,curvePath] = uigetfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'}, ...
-    'Pick a file', ...
-    'MultiSelect', 'on');
 
-if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
-    filename = cellstr(name);    
-end
 
 filenumber = length(filename);
 
