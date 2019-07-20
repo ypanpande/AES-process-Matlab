@@ -38,15 +38,13 @@ end
 
 filenumber = length(filename);
 
+for filesloop = 1:filenumber
+  
+[data, txt, raw] = xlsread(fullfile(curvePath,filename{filesloop}));
+[row_data, col_data] = size(data);
 
-for eventnum = 1:row_data
-    % observed arrive time
-    dobs = data(eventnum,:);
-    % sensor of the first arrival
-    [t_ini,index] = min(dobs);
-    
-     %searching area from (-2000,2000) to (1200,-400) and the block is 20mm*20mm
-      block = 10;
+eventMatrix_file = {}; 
+
 % %       areatop = [-2000,2000]; areabottom = [1200,-400];
     switch index
         case 1
