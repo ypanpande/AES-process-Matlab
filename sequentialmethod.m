@@ -25,16 +25,20 @@ header = [{'event name'},{'x0 (mm)'},{'y0 (mm)'},{'t0 (ms)'},{'RMS res time'},{'
 %% determining the predicted arrival time using the sequential searching algorithms
 
 
+% choose the file for analysing
+[name,curvePath] = uigetfile( ...
+    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
+    '*.*',  'All Files (*.*)'}, ...
+    'Pick a file', ...
+    'MultiSelect', 'on');
 
+if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
+    filename = cellstr(name);    
+end
 
 filenumber = length(filename);
 
-for filesloop = 1:filenumber
-  
-[data, txt, raw] = xlsread(fullfile(curvePath,filename{filesloop}));
-[row_data, col_data] = size(data);
 
-eventMatrix_file = {}; 
 for eventnum = 1:row_data
     % observed arrive time
     dobs = data(eventnum,:);
