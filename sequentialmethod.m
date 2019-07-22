@@ -44,22 +44,15 @@ for filesloop = 1:filenumber
 [row_data, col_data] = size(data);
 
 eventMatrix_file = {}; 
+for eventnum = 1:row_data
+    % observed arrive time
+    dobs = data(eventnum,:);
+    % sensor of the first arrival
+    [t_ini,index] = min(dobs);
+    
+     %searching area from (-2000,2000) to (1200,-400) and the block is 20mm*20mm
+      block = 10;
 
-% %       areatop = [-2000,2000]; areabottom = [1200,-400];
-    switch index
-        case 1
-           areatop = [-840,2000]; areabottom = [260,760]; 
-        case 2
-            areatop = [-840,780]; areabottom =  [280,-400];
-        case 3
-            areatop = [240,2000]; areabottom = [1200,760];
-        case 4
-            areatop = [260,780]; areabottom = [1200,-400];
-        case 5
-            areatop = [-2000,2000]; areabottom = [-820,760];
-        case 6
-            areatop = [-2000,780]; areabottom = [-820,-400];
-    end
 
     hornum = round((areabottom(1) - areatop(1))/block);
     vernum = round((areatop(2) - areabottom(2))/block);
