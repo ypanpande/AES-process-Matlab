@@ -114,6 +114,15 @@ for eventnum = 1:row_data
 end
     eventMatrix = [eventMatrix;eventMatrix_file];
 end
+result_matrix = [header;eventMatrix];
+%% save the result
+% save the data in the certain files
+        [resultfile,saveresultpath] = uiputfile( ...
+    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
+    '*.*',  'All Files (*.*)'},'Save file of sequential method result', 'sequential method result.xls');
+        ffresult = fullfile(saveresultpath, resultfile);
+        xlswrite(ffresult,result_matrix)
 
+msgbox('done!')
 
 %end
