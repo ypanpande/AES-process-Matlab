@@ -101,16 +101,19 @@ for eventnum = 1:row_data
         t0(j,i) = sum(dobs)/N - sum(dcal)/N;
     end
     end
-    
-result_matrix = [header;eventMatrix];
-%% save the result
-% save the data in the certain files
-        [resultfile,saveresultpath] = uiputfile( ...
-    {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-    '*.*',  'All Files (*.*)'},'Save file of sequential method result', 'sequential method result.xls');
-        ffresult = fullfile(saveresultpath, resultfile);
-        xlswrite(ffresult,result_matrix)
+    % find the index and value of the mininum rms of delta time
+    vmin = min(rmsdd(:));
+    [row_min,col_min] = find(rmsdd == vmin);
+    % calculate the position
+    xmin = areatop(1) + block/2 + (row_min(1)-1)*block;
+    ymin = areabottom(2) + block/2 + (col_min(1)-1)*block;
+    t0min = t0(row_min(1),col_min(1));
+    aver_dd = sqrt((N-M)*vmin^2/N);
+    addToRow = [{txt{eventnum+1}},{xmin},{ymin},{t0min},{vmin},{aver_dd},{t_ini},{index-1}];
+    eventMatrix_file = [eventMatrix_file;addToRow];
+end
+    eventMatrix = [eventMatrix;eventMatrix_file];
+end
 
-msgbox('done!')
 
 %end
