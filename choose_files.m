@@ -8,21 +8,7 @@ curvePath = ''; %file address
 
 
 dt = 0.004;% time step (unit: ms)
-%pphasepicker
-global type;  type = 'sm';
-global Tn;    Tn = 0.01;
-global nbins; nbins = round(2/dt);
-global xi;    xi = 0.6;
 
-%SBP picker
-global pxThreshold   ;pxThreshold = 5;
-global sWindow       ;sWindow     = 1;              % Window lenght for measuring signal amps after p-pick [sec]
-global nWindow       ;nWindow     = 1;              % Window lenght for measuring noise before p-pick [sec]
-global wmax          ;wmax        = 1e1;
-global wmin          ;wmin        = .1;
-global sWtFct        ;sWtFct      = 'exp';          % 'lin' or 'exp' or '1-exp'
-global nWtFct        ;nWtFct      = 'exp';          % 'lin' or 'exp' or '1-exp'
-global ntap          ;ntap        = 100;            %  No. of tapered samples
 
  %AIC picker
 %  global wset;     wset = 50;
