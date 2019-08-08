@@ -24,18 +24,17 @@ global sWtFct        ;sWtFct      = 'exp';          % 'lin' or 'exp' or '1-exp'
 global nWtFct        ;nWtFct      = 'exp';          % 'lin' or 'exp' or '1-exp'
 global ntap          ;ntap        = 100;            %  No. of tapered samples
 
- 
+ %AIC picker
+%  global wset;     wset = 50;
+% global fold;    fold = 5;
+global isDenoised; isDenoised = 0;
 
-%AmpFre
-global Fs  ; Fs = 250000;
+%hitsearch
+global pref  ; pref = 1;
+global hit_width  ; hit_width = 50;
+global hit_dis  ; hit_dis = 100;
 
-%CWT
-global wname; wname = 'morse';
 
-%save data
-global addToRow; addToRow ={};
-global addToRow_Classic; addToRow_Classic = {};
-global addToRow_Freq; addToRow_Freq = {};
 
 %pphasebatch
 batchflag_pphase = false;
