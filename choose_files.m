@@ -45,19 +45,23 @@ global addToRow; addToRow ={};
 global addToRow_Classic; addToRow_Classic = {};
 global addToRow_Freq; addToRow_Freq = {};
 
+%pphasebatch
+batchflag_pphase = false;
+ppbatch_loc = {};
+
+%SBPbatch
+batchflag_SBP = false;
+SBP_loc = {};
+
+%AICbatch
+batchflag_AIC = false;
+AICbatch_loc = {};
+
+%CWTbatch
+batchflag_CWT = false;
+CWTbatch_loc = {};
 
 
-%% data import
-S.fMain = figure('position', [10 10000 1600 900],'name', 'DataAnalysis','NumberTitle','off', 'resize','off');% create a figure as the context
-movegui(S.fMain,'center');
-
-
-%list to show the opened files
-S.list = uicontrol('style', 'listbox','String',{},'position', [5 135 130 700]);
-
-%button to open the files.
-S.pb_open = uicontrol('style', 'pushButton','String','open','position', [5 860 130 30], 'callback', {@getFilePath, S});
-%button to erase batch
 S.pb_unbatch = uicontrol('style', 'pushButton','String','unbatch','position', [5 840 130 15], 'callback', {@unbatch, S});
 
 %button for P_phase picker
