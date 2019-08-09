@@ -34,23 +34,18 @@ global pref  ; pref = 1;
 global hit_width  ; hit_width = 50;
 global hit_dis  ; hit_dis = 100;
 
+%AmpFre
+global Fs  ; Fs = 250000;
+
+%CWT
+global wname; wname = 'morse';
+
+%save data
+global addToRow; addToRow ={};
+global addToRow_Classic; addToRow_Classic = {};
+global addToRow_Freq; addToRow_Freq = {};
 
 
-%pphasebatch
-batchflag_pphase = false;
-ppbatch_loc = {};
-
-%SBPbatch
-batchflag_SBP = false;
-SBP_loc = {};
-
-%AICbatch
-batchflag_AIC = false;
-AICbatch_loc = {};
-
-%CWTbatch
-batchflag_CWT = false;
-CWTbatch_loc = {};
 
 %% data import
 S.fMain = figure('position', [10 10000 1600 900],'name', 'DataAnalysis','NumberTitle','off', 'resize','off');% create a figure as the context
