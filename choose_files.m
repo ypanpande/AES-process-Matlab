@@ -61,36 +61,19 @@ AICbatch_loc = {};
 batchflag_CWT = false;
 CWTbatch_loc = {};
 
+%% data import
+S.fMain = figure('position', [10 10000 1600 900],'name', 'DataAnalysis','NumberTitle','off', 'resize','off');% create a figure as the context
+movegui(S.fMain,'center');
 
+
+%list to show the opened files
+S.list = uicontrol('style', 'listbox','String',{},'position', [5 135 130 700]);
+
+%button to open the files.
+S.pb_open = uicontrol('style', 'pushButton','String','open','position', [5 860 130 30], 'callback', {@getFilePath, S});
+%button to erase batch
 S.pb_unbatch = uicontrol('style', 'pushButton','String','unbatch','position', [5 840 130 15], 'callback', {@unbatch, S});
 
-%button for P_phase picker
-S.pb_pphase = uicontrol('style', 'pushButton','String','pphase','position', [149 860 130 30], 'callback', {@getPphase, S});
-S.pb_pphase_para = uicontrol('style', 'pushButton','String','parameter','position', [170 840 90 20], 'callback', {@getPphase_pare, S});
-S.pb_pphase_batch = uicontrol('style', 'pushButton','String','ba','position', [265 840 20 20], 'callback', {@getPphase_batch, S});
-
-%button for SBPpicker
-S.pb_SBP = uicontrol('style', 'pushButton','String','SBP','position', [290 860 130 30], 'callback', {@getSBP, S});
-S.pb_SBP_para = uicontrol('style', 'pushButton','String','parameter','position', [310 840 90 20], 'callback', {@getSBP_pare, S});
-S.pb_SBP_batch = uicontrol('style', 'pushButton','String','ba','position', [405 840 20 20], 'callback', {@getSBP_batch, S});
-
-%button for AIC picker
-S.pb_AIC = uicontrol('style', 'pushButton','String','AIC','position', [430 860 130 30], 'callback', {@getAIC, S});
-S.pb_AIC_para = uicontrol('style', 'pushButton','String','parameter','position', [450 840 90 20], 'callback', {@getAIC_pare, S});
-S.pb_AIC_batch = uicontrol('style', 'pushButton','String','ba','position', [545 840 20 20], 'callback', {@getAIC_batch, S});
-
-%button for hitsearch picker
-S.pb_hitsearch = uicontrol('style', 'pushButton','String','Classic','position', [570 860 130 30], 'callback', {@gethitsearch, S});
-S.pb_hitsearch_para = uicontrol('style', 'pushButton','String','parameter','position', [590 840 90 20], 'callback', {@gethitsearch_pare, S});
-
-%button for frequency field
-S.pb_AmpFre = uicontrol('style', 'pushButton','String','Frequency','position', [710 860 130 30], 'callback', {@getAmpFre, S});
-S.pb_AmpFre_para = uicontrol('style', 'pushButton','String','parameter','position', [730 840 90 20], 'callback', {@getAmpFre_pare, S});
-
-%button for CWT picker
-S.pb_CWT = uicontrol('style', 'pushButton','String','CWT','position', [850 860 130 30], 'callback', {@getCWT, S});
-S.pb_CWT_para = uicontrol('style', 'pushButton','String','parameter','position', [870 840 90 20], 'callback', {@getCWT_pare, S});
-S.pb_CWT_batch = uicontrol('style', 'pushButton','String','ba','position', [965 840 20 20], 'callback', {@getCWT_batch, S});
 
 
 %button for save data of onsets
