@@ -74,6 +74,33 @@ S.pb_open = uicontrol('style', 'pushButton','String','open','position', [5 860 1
 %button to erase batch
 S.pb_unbatch = uicontrol('style', 'pushButton','String','unbatch','position', [5 840 130 15], 'callback', {@unbatch, S});
 
+%button for P_phase picker
+S.pb_pphase = uicontrol('style', 'pushButton','String','pphase','position', [149 860 130 30], 'callback', {@getPphase, S});
+S.pb_pphase_para = uicontrol('style', 'pushButton','String','parameter','position', [170 840 90 20], 'callback', {@getPphase_pare, S});
+S.pb_pphase_batch = uicontrol('style', 'pushButton','String','ba','position', [265 840 20 20], 'callback', {@getPphase_batch, S});
+
+%button for SBPpicker
+S.pb_SBP = uicontrol('style', 'pushButton','String','SBP','position', [290 860 130 30], 'callback', {@getSBP, S});
+S.pb_SBP_para = uicontrol('style', 'pushButton','String','parameter','position', [310 840 90 20], 'callback', {@getSBP_pare, S});
+S.pb_SBP_batch = uicontrol('style', 'pushButton','String','ba','position', [405 840 20 20], 'callback', {@getSBP_batch, S});
+
+%button for AIC picker
+S.pb_AIC = uicontrol('style', 'pushButton','String','AIC','position', [430 860 130 30], 'callback', {@getAIC, S});
+S.pb_AIC_para = uicontrol('style', 'pushButton','String','parameter','position', [450 840 90 20], 'callback', {@getAIC_pare, S});
+S.pb_AIC_batch = uicontrol('style', 'pushButton','String','ba','position', [545 840 20 20], 'callback', {@getAIC_batch, S});
+
+%button for hitsearch picker
+S.pb_hitsearch = uicontrol('style', 'pushButton','String','Classic','position', [570 860 130 30], 'callback', {@gethitsearch, S});
+S.pb_hitsearch_para = uicontrol('style', 'pushButton','String','parameter','position', [590 840 90 20], 'callback', {@gethitsearch_pare, S});
+
+%button for frequency field
+S.pb_AmpFre = uicontrol('style', 'pushButton','String','Frequency','position', [710 860 130 30], 'callback', {@getAmpFre, S});
+S.pb_AmpFre_para = uicontrol('style', 'pushButton','String','parameter','position', [730 840 90 20], 'callback', {@getAmpFre_pare, S});
+
+%button for CWT picker
+S.pb_CWT = uicontrol('style', 'pushButton','String','CWT','position', [850 860 130 30], 'callback', {@getCWT, S});
+S.pb_CWT_para = uicontrol('style', 'pushButton','String','parameter','position', [870 840 90 20], 'callback', {@getCWT_pare, S});
+S.pb_CWT_batch = uicontrol('style', 'pushButton','String','ba','position', [965 840 20 20], 'callback', {@getCWT_batch, S});
 
 
 %button for save data of onsets
@@ -85,23 +112,6 @@ S.pb_forDataSave_Classic = uicontrol('style', 'pushButton','String','ClassicData
 %button for save data of frequency
 S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave','position', [5 10 130 30], 'callback', {@forFreqDataSave, S});
 
-%obtain the filenames 'filename' in the form of cell array
-    function filename = getFilePath(varargin)
-        S = varargin{3};% get the whole handles
-        [name,curvePath] = uigetfile( ...
-            {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
-            '*.*',  'All Files (*.*)'}, ...
-            'Pick a file', ...
-            'MultiSelect', 'on');
-        
-        if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
-            filename = cellstr(name);
-            
-            S.list.String = filename;%display the opened files
-            set(S.list,'callback', {@listCallback, S}) %set listbox
-            
-        end
-    end
 
 
 %unbatch all the flag
