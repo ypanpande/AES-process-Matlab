@@ -112,29 +112,28 @@ S.pb_forDataSave_Classic = uicontrol('style', 'pushButton','String','ClassicData
 %button for save data of frequency
 S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave','position', [5 10 130 30], 'callback', {@forFreqDataSave, S});
 
+%obtain the filenames 'filename' in the form of cell array
+    function filename = getFilePath(varargin)
+        S = varargin{3};% get the whole handles
+        [name,curvePath] = uigetfile( ...
+            {'*.txt; *.xls; *.csv','Text file(*.txt, *.xls, *.csv)';...
+            '*.*',  'All Files (*.*)'}, ...
+            'Pick a file', ...
+            'MultiSelect', 'on');
+        
+        if ~isempty(name) & ~isa(name,'double')% only if choose one or more files
+            filename = cellstr(name);
+            
+            S.list.String = filename;%display the opened files
+            set(S.list,'callback', {@listCallback, S}) %set listbox
+            
+        end
+    end
 
 
 %unbatch all the flag
 
-    function unbatch(varargin)
-        %pphasebatch
-        batchflag_pphase = false;
-        ppbatch_loc = {};
-        
-        %SBPbatch
-        batchflag_SBP = false;
-        SBP_loc = {};
-        
-        %AICbatch
-        batchflag_AIC = false;
-        AICbatch_loc = {};
-        
-        %CWTbatch
-        batchflag_CWT = false;
-        CWTbatch_loc = {};
-        
-    end
-
+    
 
 %display the fiture when click the item in the listbox
     function listCallback(varargin)
