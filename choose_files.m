@@ -133,28 +133,29 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
 
 %unbatch all the flag
 
-    
+    function unbatch(varargin)
+        %pphasebatch
+        batchflag_pphase = false;
+        ppbatch_loc = {};
+        
+        %SBPbatch
+        batchflag_SBP = false;
+        SBP_loc = {};
+        
+        %AICbatch
+        batchflag_AIC = false;
+        AICbatch_loc = {};
+        
+        %CWTbatch
+        batchflag_CWT = false;
+        CWTbatch_loc = {};
+        
+    end
+
 
 %display the fiture when click the item in the listbox
     function listCallback(varargin)
-        S = varargin{3};%get the whole handles
-        fname = S.list.String{S.list.Value}; %get the highlight item in the listbox
         
-       
-        [Data,txt,raw] = xlsread(fullfile(curvePath, fname));%read .xls order .cvs data
-      
-        [Data_row, Data_col]=size(Data);
-        
-        for i = 1: Data_col
-            DCH{i}=Data(:,i); %one column data
-            DCH_colname{i} = txt(i); %responding column name
-            x_max = 0 + (Data_row - 1)*dt;
-            x_axis = 0:dt:x_max;% x-axis for drawing the picture
-            
-            %plot
-    
-           
-
             if batchflag_pphase
                 tt= subplot(2,3,i,'Parent',S.fMain);
                 loc = ppbatch_loc{S.list.Value};
