@@ -214,7 +214,82 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %calculate pPhase
-    
+    function getPphase(varargin)
+        S = varargin{3};%get the whole handles
+        fname = S.list.String{S.list.Value}; %get the highlight item in the listbox
+        [Data,txt,raw] = xlsread(fullfile(curvePath, fname));%read .xls order .cvs data
+        [Data_row, Data_col]=size(Data);
+        
+        addrowTem = {};% store the 6 x-axis data
+        for i = 1: Data_col
+            DCH{i}=Data(:,i); %one column data
+            DCH_colname{i} = txt(i); %responding column name
+            saveChannelTitle{i} = txt(i);
+            
+            loc = PphasePicker(DCH{i}, dt,  type, 'N', Tn, xi, nbins, 'to_peak');
+            addrowTem{i} = loc;
+            
+            % plot result
+            %   set(0,'CurrentFigure',S.fMain);
+            
+            x_max = 0 + (Data_row - 1)*dt;
+            x_axis = 0:dt:x_max;% x-axis for drawing the picture
+            tt = subplot(2,3,i,'Parent',S.fMain);
+            y1=get(tt,'ylim'); %draw a line
+            
+            plot(tt, x_axis, DCH{i},[loc, loc],y1);
+            title(tt,['p-phase', DCH_colname{i}])
+            
+            
+        end
+        %add to save date table
+        addToRow = [{fname},addrowTem];
+    end
+
+%parameters of Pphase
+%new figre for paraments (type, Tn, xi, nbins) configuration
+    function getPphase_pare(varargin)
+        S = varargin{3};%get the whole handles
+        paramaterForPphasePicker;
+    end
+
+%batch pPhase
+    function getPphase_batch(varargin)
+        batchflag_pphase = true;
+        S = varargin{3};%get the whole handles
+        pphasebatch_matrix = {' ', 'CH0 (ms)','CH1 (ms)','CH2 (ms)','CH3 (ms)','CH4 (ms)','CH5 (ms)'};
+        h = msgbox('Please wait for batch of pPhase...'); % show the dialog box of waiting for batch calculation
+        for listItem = 1: length(S.list.String)
+            fname = S.list.String{listItem}; %get the highlight item in the listbox
+            [Data,txt,raw] = xlsread(fullfile(curvePath, fname));%read .xls order .cvs data
+            [Data_row, Data_col]=size(Data);
+            
+            addrowTem = {};% store the 6 x-axis data
+            for i = 1: Data_col
+                DCH{i}=Data(:,i); %one column data
+                DCH_colname{i} = txt(i); %responding column name
+                saveChannelTitle{i} = txt(i);
+                
+                loc = PphasePicker(DCH{i}, dt,  type, 'N', Tn, xi, nbins, 'to_peak');
+                addrowTem{i} = loc;
+                
+            end
+            %add to save date table
+            addToRow_batch = [{fname},addrowTem];
+            pphasebatch_matrix = [pphasebatch_matrix;addToRow_batch]; %for data saving
+            
+            ppbatch_loc{end + 1} =  addrowTem;%for drawing
+            
+        end
+        delete(h);
+        [file,path] = uiputfile('file.xls','Save table of Pphase batch');
+        ff = fullfile(path, file);
+        xlswrite(ff,pphasebatch_matrix)
+        msgbox('done!')
+    end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %calculate SBP
     function getSBP(varargin)
         S = varargin{3};%get the whole handles
@@ -245,27 +320,7 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
             
             addrowTem{i} = loc;
             
-            % plot result
-            tt = subplot(2,3,i,'Parent',S.fMain);
-            y1=get(tt,'ylim'); %draw a line
-            
-            
-            plot(tt, x_axis, DCH{i},[loc, loc],y1);
-            title(tt,['SBP-', DCH_colname{i}])
-            
-            
-        end
-        %add to save date table
-        addToRow = [{fname},addrowTem];
-    end
-
-%parameters of SBP
-%new figre for paraments (type, Tn, xi, nbins) configuration
-    function getSBP_pare(varargin)
-        S = varargin{3};%get the whole handles
-        paramaterForSBP;
-    end
-
+           
 %batch of SBP
     function getSBP_batch(varargin)
         batchflag_SBP = true;
