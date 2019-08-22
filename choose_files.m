@@ -320,7 +320,27 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
             
             addrowTem{i} = loc;
             
-           
+            % plot result
+            tt = subplot(2,3,i,'Parent',S.fMain);
+            y1=get(tt,'ylim'); %draw a line
+            
+            
+            plot(tt, x_axis, DCH{i},[loc, loc],y1);
+            title(tt,['SBP-', DCH_colname{i}])
+            
+            
+        end
+        %add to save date table
+        addToRow = [{fname},addrowTem];
+    end
+
+%parameters of SBP
+%new figre for paraments (type, Tn, xi, nbins) configuration
+    function getSBP_pare(varargin)
+        S = varargin{3};%get the whole handles
+        paramaterForSBP;
+    end
+
 %batch of SBP
     function getSBP_batch(varargin)
         batchflag_SBP = true;
@@ -653,19 +673,5 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%save data of onsets to .csv
-    function forDataSave(varargin)
-        MakeTableGUI
-    end
-
-%save data of Classic to .csv
-    function forClassicDataSave(varargin)
-        MakeTableGUI_Classic
-    end
-
-%save data of Frequency to .csv
-    function forFreqDataSave(varargin)
-        MakeTableGUI_Freq
-    end
 
 end
