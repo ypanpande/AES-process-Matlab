@@ -673,5 +673,19 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%save data of onsets to .csv
+    function forDataSave(varargin)
+        MakeTableGUI
+    end
+
+%save data of Classic to .csv
+    function forClassicDataSave(varargin)
+        MakeTableGUI_Classic
+    end
+
+%save data of Frequency to .csv
+    function forFreqDataSave(varargin)
+        MakeTableGUI_Freq
+    end
 
 end
