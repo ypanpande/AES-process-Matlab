@@ -657,7 +657,16 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
                 addrowTem{i} = loc;
                 
             end
-           
+            %add to save date table
+            addToRow_batch = [{fname},addrowTem];
+            CWTbatch_matrix = [CWTbatch_matrix;addToRow_batch]; %for data saving
+            
+            CWTbatch_loc{end + 1} =  addrowTem;%for drawing
+            
+        end
+        delete(h);
+        [file,path] = uiputfile('file.xls','Save table of CWT batch');
+        ff = fullfile(path, file);
         xlswrite(ff,CWTbatch_matrix)
         msgbox('done!')
     end
