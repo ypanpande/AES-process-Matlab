@@ -647,16 +647,7 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
             [Data,txt,raw] = xlsread(fullfile(curvePath, fname));%read .xls order .cvs data
             [Data_row, Data_col]=size(Data);
             
-            addrowTem = {};% store the 6 x-axis data
-            for i = 1: Data_col
-                DCH{i}=Data(:,i); %one column data
-                DCH_colname{i} = txt(i); %responding column name
-                saveChannelTitle{i} = txt(i);              
-                
-                loc = cwttest(DCH{i}, wname);
-                addrowTem{i} = loc;
-                
-            end
+
             %add to save date table
             addToRow_batch = [{fname},addrowTem];
             CWTbatch_matrix = [CWTbatch_matrix;addToRow_batch]; %for data saving
