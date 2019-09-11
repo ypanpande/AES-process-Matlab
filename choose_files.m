@@ -584,12 +584,7 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
         %addToRow = [{fname},addrowTem];
     end
 
-%parameters of hitsearch
-%new figre for paraments (type, Tn, xi, nbins) configuration
-    function getAmpFre_pare(varargin)
-        S = varargin{3};%get the whole handles
-        paramaterForAmpFre;
-    end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -628,6 +623,12 @@ S.pb_forDataSave_Freq = uicontrol('style', 'pushButton','String','FreqDataSave',
         addToRow = [{fname},addrowTem];
     end
 
+%parameters of Pphase
+%new figre for paraments (type, Tn, xi, nbins) configuration
+    function getCWT_pare(varargin)
+        S = varargin{3};%get the whole handles
+        paramaterForCWT;
+    end
 
 
 %batch of AIC
